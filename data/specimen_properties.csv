@@ -1,0 +1,6 @@
+Sample, Width 1, Width 2, Width 3, Thickness 1, Thickness 2, Thickness 3, Mass, Breaking Characteristics
+1, 14.83, 14.88, 14.81, 3.29, 3.32, 3.46, 30.96, Gentle
+2, 15.09, 15.08, 15.03, 3.21, 3.37, 3.20, 32.46, Loud snap
+3, 14.98, 14.96, 14.96, 3.22, 3.25, 3.21, 102.57, Significant elongation and gentle snap
+4, 14.95, 14.95, 14.94, 3.14, 3.13, 3.10, 84.97, Very loud snap
+5, 15.07, 15.14, 15.11, 3.29, 3.27, 3.29, 52.60, Very loud snap
