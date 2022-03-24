@@ -1,4 +1,4 @@
-specimen_number = 2;
+specimen_number = 4;
 
 [plot_limit, elastic_limit, stress, strain, laser] = ...
     yield_preprocess(specimen_number);
@@ -53,21 +53,55 @@ YY = ylim();
 ylim([0, YY(2)]);
 
 plot(strain, slope * strain,...
-    strain(offset_strain > 0), offset_curve(offset_strain > 0), "--k",...
+    strain, offset_curve, "--k",...
     "Linewidth", 1)
 scatter(strain(idx), stress(idx), "green", "Filled")
 
-y1 = yline(stress(idx), "--k", sprintf("%g MPa", stress(idx)),...
+yline(stress(idx), "--k", sprintf("%g MPa", stress(idx)),...
     "Linewidth", 1, "LabelHorizontalAlignment", "left");
 
 legend("Stress-Strain", "Linear Fit",...
     "0.2% offset Line", "Yield Point", "Location", "Southeast")
 grid on; grid minor
 
-
-
 title(sprintf("Specimen %g",...
     specimen_number))
 xlabel("Strain")
 ylabel("Engineering Stress (MPa)")
-saveas(gcf, sprintf("../../figures/yield%d.pdf", specimen_number))
+
+%saveas(gcf, sprintf("../../figures/yield%d.pdf", specimen_number))
+
+%% Laser
+laser_warmup = 20;
+laser = laser(laser_warmup:plot_limit);
+laser_strain = (laser - laser(1)) / 50;
+
+offset_laser = slope * (laser_strain-0.002);
+[~, idlaser] = min(abs(offset_laser - stress(laser_warmup:end)));
+idlaser = idlaser + laser_warmup;
+
+
+figure
+plot(laser_strain, stress(laser_warmup:end), "Linewidth", 2)
+grid on; grid minor;
+xlabel("Approximate Strain (laser)")
+ylabel("Engineering Stress (MPa)")
+axis manual
+hold on
+plot(laser_strain, offset_laser, "--k",...
+    "Linewidth", 1)
+
+yline(stress(idlaser), "--k", sprintf("%g MPa", stress(idlaser)),...
+    "Linewidth", 1, "LabelHorizontalAlignment", "left");
+title(sprintf("Specimen %g (laser)",...
+    specimen_number))
+
+scatter(laser_strain(idlaser-laser_warmup), stress(idlaser), "green", "Filled")
+
+XX = xlim();
+xlim([0 XX(2)]);
+YY = ylim();
+ylim([0, YY(2)]);
+
+
+
