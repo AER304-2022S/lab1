@@ -1,13 +1,21 @@
-specimens = cell(1,5);
+areas = specimen_areas(); % mm^2
+
+specimens = cell(1,5); % Initialize empty cell array for each specimen
 
 for i = 1:5
+    % Read Raw data
     A = readmatrix(...
         sprintf("../../data/labview/specimen%d.txt", i));
+    
+    % TRIM the array down to remove the headers
     A = A(10:end, 2:end-1);
-    time = A(:, 1);
-    load = A(:, 2);
-    mts_extension = A(:, 3);
-    laser = A(:, 4);
+    
+    % extract the various rows
+    time = A(:, 1); % s
+    load = A(:, 2); % N
+    mts_extension = A(:, 3); % mm
+    laser = A(:, 4); % mm
+    stress = load / areas(i); % MPa
     
     switch i
         case {1, 2, 4}
@@ -19,10 +27,13 @@ for i = 1:5
     end
     
     subplot(3, 2, i)
-    plot(strain_axial, load);
+    plot(strain_axial, stress);
+    xlabel("Strain");
+    ylabel("Engineering Stress (MPa)")
     title(sprintf("Specimen %d", i))
     
-    specimens{i} = table(time, load, mts_extension, strain_axial, strain_poisson);
+    specimens{i} = table(time, load, mts_extension,...
+        strain_axial, strain_poisson, stress);
 end
 save ../../data/processed_labview/specimens.mat specimens
 
