@@ -1,6 +1,6 @@
-specimen_number = 5;
+specimen_number = 2;
 
-[plot_limit, elastic_limit, stress, strain] = ...
+[plot_limit, elastic_limit, stress, strain, laser] = ...
     yield_preprocess(specimen_number);
 
 fprintf("Currently Analyzing: Specimen %g\n", specimen_number)
@@ -43,16 +43,31 @@ fprintf("Estimated 0.002 offset yield strain of %g MPa (0.95 CI [%g, %g])\n",...
     stress(idx), stress(idmax), stress(idmin))
 
 %% Plot everything
-plot(strain, stress,...
-    strain, slope * strain,...
-    strain(offset_strain > 0), offset_curve(offset_strain > 0), "--")
+plot(strain, stress, "Linewidth", 2)
 hold on
-scatter(strain(idx), stress(idx))
+axis manual
+
+XX = xlim();
+xlim([0 XX(2)]);
+YY = ylim();
+ylim([0, YY(2)]);
+
+plot(strain, slope * strain,...
+    strain(offset_strain > 0), offset_curve(offset_strain > 0), "--k",...
+    "Linewidth", 1)
+scatter(strain(idx), stress(idx), "green", "Filled")
+
+y1 = yline(stress(idx), "--k", sprintf("%g MPa", stress(idx)),...
+    "Linewidth", 1, "LabelHorizontalAlignment", "left");
+
 legend("Stress-Strain", "Linear Fit",...
-    "0.2% offset", "Yield point", "Location", "Northwest")
-axis tight; grid on; grid minor
-title(sprintf("Specimen %g: %g MPa Yield Strength",...
-    specimen_number, stress(idx)))
+    "0.2% offset Line", "Yield Point", "Location", "Southeast")
+grid on; grid minor
+
+
+
+title(sprintf("Specimen %g",...
+    specimen_number))
 xlabel("Strain")
 ylabel("Engineering Stress (MPa)")
 saveas(gcf, sprintf("../../figures/yield%d.pdf", specimen_number))

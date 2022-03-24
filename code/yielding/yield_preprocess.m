@@ -1,10 +1,11 @@
-function [plot_limit, elastic_limit, stress, strain] = ...
+function [plot_limit, elastic_limit, stress, strain, laser] = ...
     yield_preprocess(specimen)
 
     load("../../data/processed_labview/specimens.mat", "specimens");
     
     stress = specimens{specimen}.stress;
     strain = specimens{specimen}.strain_axial;
+    laser = specimens{specimen}.laser;
 
     switch specimen
         % elastic_limit: Only linear fit using the first ___ datapoints
@@ -17,7 +18,7 @@ function [plot_limit, elastic_limit, stress, strain] = ...
             plot_limit = 450; 
         case 3
             elastic_limit = 200;
-            plot_limit = 300;
+            plot_limit = 270;
         case 4
             elastic_limit = 200;
             plot_limit = 250;
