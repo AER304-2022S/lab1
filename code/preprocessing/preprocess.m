@@ -32,7 +32,7 @@ for i = 1:5
     ylabel("Engineering Stress (MPa)")
     title(sprintf("Specimen %d", i))
     
-    specimens{i} = table(time, load, mts_extension,...
+    specimens{i} = table(time, load, mts_extension, laser,...
         strain_axial, strain_poisson, stress);
 end
 save ../../data/processed_labview/specimens.mat specimens
