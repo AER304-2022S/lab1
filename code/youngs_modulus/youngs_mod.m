@@ -23,9 +23,9 @@ for i = 1:5
     ylabel('\(\sigma\)', 'Interpreter','latex')
     title("Specimen 1 Stress vs. Strain curve")
     legend('Experimental Data', "Elastic Regime", 'Location', 'Best')
-    txt = sprintf('specimen_%g.pdf', i);
+    txt = sprintf('../../figures/youngs_mod_%g.pdf', i);
     saveas(gcf, txt)
-    filename = sprintf("E%g.mat", i);
+    filename = sprintf("../../data/youngs_mod/E%g.mat", i);
     save(filename, "E", "sigma")
 end
 
