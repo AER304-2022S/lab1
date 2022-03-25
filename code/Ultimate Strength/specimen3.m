@@ -3,6 +3,9 @@ load("../../data/processed_labview/specimens.mat")
 specimenn3 = specimens(3);
 load3 = specimenn3{1}.load;
 strain = specimenn3{1}.strain_axial;
+laser = specimenn3{1}.laser;
+laser = laser(20:end);
+laser = (laser - laser(1))/50;
 
 % Original Cross-Sectional Area
 % Measurements contain error!
@@ -11,14 +14,29 @@ thickness_avg = (3.22+3.25+3.21)/3;
 area = width_avg*thickness_avg;
 
 eng_stress = load3/area;
-max_stress = max(eng_stress(1:300));
+max_stress = max(eng_stress(1:end));
 strain_at_max_stress = strain(find(eng_stress == max_stress)); % strain at the max stress
+laser_strain_at_max_stress = laser(find(eng_stress == max_stress)-20);
 
+% Stress vs. Strain Gauge (BETTER PLOT)
+figure
 hold on
-plot(strain(1:300), eng_stress(1:300)) % cuts out the weird stuff?? 
+plot(strain, eng_stress) % cuts out the weird stuff 
 plot(strain_at_max_stress, max_stress, 'o')
-xlabel("Engineering Strain - dimensionaless");
+xlabel("Strain Gauge - dimensionaless");
 ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Engineering Strain Plot for specimen 3");
 legend("stress-Strain relationship", "Ultimate Strength = 240.015 N/m^2", "location", "Southeast");
 hold off
+
+% Stress vs. Laser Strain
+figure
+hold on
+plot(laser, eng_stress(20:end)) % cuts out the weird stuff at beginning
+plot(laser_strain_at_max_stress, max_stress, 'o')
+xlabel("Laser Strain - dimensionaless");
+ylabel("Engineering Stress - N/m^2");
+title("Engineering Stress vs. Lasor Strain Plot for specimen 3");
+legend("stress-Strain relationship", "Ultimate Strength = 240.015 N/m^2", "location", "Southeast");
+hold off
+
