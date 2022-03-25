@@ -20,7 +20,7 @@ function [plot_limit, elastic_limit, stress, strain, laser] = ...
             elastic_limit = 200;
             plot_limit = 270;
         case 4
-            elastic_limit = 200;
+            elastic_limit = 55;
             plot_limit = 250;
         case 5
             elastic_limit = 400;
