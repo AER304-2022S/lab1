@@ -22,7 +22,7 @@ for i = 1:5
     xlabel("\(\epsilon\)", 'Interpreter','latex')
     ylabel('\(\sigma\)', 'Interpreter','latex')
     title("Specimen 1 Stress vs. Strain curve")
-    legend('Experimental Data', "Elastic Regime, Interpolated", 'Location', 'Best')
+    legend('Experimental Data', "Elastic Regime", 'Location', 'Best')
     txt = sprintf('specimen_%g.pdf', i);
     saveas(gcf, txt)
     filename = sprintf("E%g.mat", i);
