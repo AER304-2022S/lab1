@@ -14,7 +14,7 @@ thickness_avg = (3.22+3.25+3.21)/3;
 area = width_avg*thickness_avg;
 
 eng_stress = load3/area;
-max_stress = max(eng_stress(1:end));
+max_stress = max(eng_stress(1:end))
 strain_at_max_stress = strain(find(eng_stress == max_stress)); % strain at the max stress
 laser_strain_at_max_stress = laser(find(eng_stress == max_stress)-20);
 
@@ -26,8 +26,9 @@ plot(strain_at_max_stress, max_stress, 'o')
 xlabel("Strain Gauge - dimensionaless");
 ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Engineering Strain Plot for specimen 3");
-legend("stress-Strain relationship", "Ultimate Strength = 240.015 N/m^2", "location", "Southeast");
+legend("stress-Strain relationship", "Ultimate Strength = 266.2830 N/m^2", "location", "Southeast");
 hold off
+saveas(gcf, 'US_specimen3_strain_gauge.pdf')
 
 % Stress vs. Laser Strain
 figure
@@ -37,6 +38,7 @@ plot(laser_strain_at_max_stress, max_stress, 'o')
 xlabel("Laser Strain - dimensionaless");
 ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Lasor Strain Plot for specimen 3");
-legend("stress-Strain relationship", "Ultimate Strength = 240.015 N/m^2", "location", "Southeast");
+legend("stress-Strain relationship", "Ultimate Strength = 266.2830 N/m^2", "location", "Southeast");
 hold off
+saveas(gcf, 'US_specimen3_laser.pdf')
 

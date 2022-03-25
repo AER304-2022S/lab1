@@ -29,6 +29,7 @@ ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Engineering Strain Plot for specimen 1");
 legend("stress-Strain relationship", "Ultimate Strength = 74.647 N/m^2", "location", "Southeast");
 hold off
+saveas(gcf, 'US_specimen1_strain_gauge.pdf')
 
 % Laser Strain vs. Stress (BETTER one)
 figure
@@ -40,4 +41,4 @@ ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Laser Strain Plot for specimen 1");
 legend("Stress-Strain relationship", "Ultimate Strength = 74.647 N/m^2", "location", "Southeast");
 hold off
-
+saveas(gcf, 'US_specimen1_laser.pdf')

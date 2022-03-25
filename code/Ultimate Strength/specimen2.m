@@ -26,8 +26,9 @@ plot(strain_at_max_stress, max_stress, 'o')
 xlabel("Strain Gauge - dimensionaless");
 ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Engineering Strain Plot for specimen 2");
-legend("stress-Strain relationship", "Ultimate Strength = 75.7042 N/m^2", "location", "Southeast");
+legend("stress-Strain relationship", "Ultimate Strength = 549.3317 N/m^2", "location", "Southeast");
 hold off
+saveas(gcf, 'US_specimen2_strain_gauge.pdf')
 
 % Laser Strain vs. stress (BETTER)
 figure
@@ -37,5 +38,6 @@ plot(laser_strain_at_max_stress, max_stress, 'o')
 xlabel("Laser Strain - dimensionaless");
 ylabel("Engineering Stress - N/m^2");
 title("Engineering Stress vs. Lasor Strain Plot for specimen 2");
-legend("stress-Strain relationship", "Ultimate Strength = 75.7042 N/m^2", "location", "Southeast");
+legend("Stress-Strain relationship", "Ultimate Strength = 549.3317 N/m^2", "location", "Southeast");
 hold off
+saveas(gcf, 'US_specimen2_laser.pdf')
