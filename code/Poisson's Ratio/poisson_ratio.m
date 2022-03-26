@@ -12,7 +12,7 @@ lower = [120,60,75,120];
 upper = [450,450,300,625];
 
 
-for i = 1:4 % We didn't hae a strain gauge for sample five, NICE
+for i = 1%:4 % We didn't hae a strain gauge for sample five, NICE
     current = specimens{i};
     
     axial = current.strain_axial(lower(i):upper(i),1); % Pulling the axial strains
@@ -26,9 +26,12 @@ for i = 1:4 % We didn't hae a strain gauge for sample five, NICE
     hold on
     plot([time(1),time(end)],[average,average])
     legend("Instantaneous Poisson Ratio", "Average Poisson Ratio", "Interpreter", "Latex")
-    xlabel("Time, $t$", "Interpreter", "latex")
-    ylabel("Poisson Ratio, $\nu$", "Interpreter", "latex")
-    title(sprintf("Poisson Ratio of Sample %g", i), "Interpreter","latex")
+%     xlabel("Time, $t$", "Interpreter", "latex")
+%     ylabel("Poisson Ratio, $\nu$", "Interpreter", "latex")
+%     title(sprintf("Poisson Ratio of Sample %g", i), "Interpreter","latex")
+    title("Young's Modulus, $E$, (MPa)", "Interpreter", "latex")
+    xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+    ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
     txt = sprintf('../../figures/poisson_%g.pdf', i);
     saveas(gcf, txt)
     filename = sprintf("../../data/poisson/poisson%g.mat", i);
