@@ -22,11 +22,17 @@ Organization is imperative to a well functioning lab group. The file structure o
   * apparatus_images
   * data_images
   * labview
-* latex
-  * (TBD)
-  * sample_calculations
 * notes
   * prelab
 * reference
-  * (TBD)
+
+# Running Analysis Code
+Requires MATLAB 2019a or later.
+1. Navigate the MATLAB editor to `code/preprocessing` and run `preprocess.m`
+2. Navigate the MATLAB editor to `code/Poisson's Ratio` and run `poisson_ratio.m`
+3. Navigate the MATLAB editor to `code/Ultimate Strength` and run `run_this.m`
+4. Navigate the MATLAB editor to `code/yielding` and run `yield_analysis.m`
+5. Navigate the MATLAB editor to `code/youngs_modulus` and run `youngs_mod_gauge.m` then `youngs_mod_extensometer.m`
+
+The figures will appear in `figures/.`
 
