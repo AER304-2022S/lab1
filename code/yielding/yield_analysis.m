@@ -73,7 +73,7 @@ for specimen_number = 1:5
 
     title(sprintf("Specimen %g, Yield Strength (MPa), Strain Gauge",...
         specimen_number), "interpreter", "latex")
-    xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+    xlabel("Engineering Strain, $\epsilon$, (mm/mm)", "Interpreter", "latex")
     ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
 
     saveas(gcf, sprintf("../../figures/gaugeyield%d.pdf", specimen_number))
@@ -96,7 +96,7 @@ for specimen_number = 1:5
     figure
     plot(laser_strain, stress(laser_warmup:end), "Linewidth", 2)
     grid on;
-    xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+    xlabel("Engineering Strain, $\epsilon$, (mm/mm)", "Interpreter", "latex")
     ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
     axis manual
     hold on
