@@ -1,3 +1,6 @@
+yield_strength_gauge = zeros(5, 1);
+yield_strength_laser = zeros(5, 1);
+
 for specimen_number = 1:5
     [plot_limit, elastic_limit, stress, strain, laser] = ...
         yield_preprocess(specimen_number);
@@ -39,8 +42,9 @@ for specimen_number = 1:5
     [~, idmin] = min(abs(offset_curve_min - stress));
     [~, idmax] = min(abs(offset_curve_max - stress));
     fprintf(...
-        "Estimated 0.002 offset yield strain of %g MPa (0.95 CI [%g, %g])\n\n",...
+        "Estimated 0.002 offset yield strength (GAUGE) of %g MPa (0.95 CI [%g, %g])\n",...
         stress(idx), stress(idmax), stress(idmin))
+    yield_strength_gauge(specimen_number) = stress(idx);
 
     %% Plot Strain Gauge Results
     figure
@@ -65,12 +69,12 @@ for specimen_number = 1:5
     legend("Stress-Strain", "Linear Fit",...
         "0.2\% offset Line", "Yield Point", "Location", "Southeast",...
         "interpreter", "latex")
-    grid on; grid minor
+    grid on;
 
-    title(sprintf("Specimen %g (Strain Gauge)",...
+    title(sprintf("Specimen %g, Yield Strength (Strain Gauge)",...
         specimen_number), "interpreter", "latex")
-    xlabel("Engineering Strain", "interpreter", "latex")
-    ylabel("Engineering Stress (MPa)", "interpreter", "latex")
+    xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+    ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
 
     saveas(gcf, sprintf("../../figures/gaugeyield%d.pdf", specimen_number))
 
@@ -82,13 +86,18 @@ for specimen_number = 1:5
     offset_laser = slope * (laser_strain-0.002);
     [~, idlaser] = min(abs(offset_laser - stress(laser_warmup:end)));
     idlaser = idlaser + laser_warmup;
+    
+    fprintf(...
+        "Estimated 0.002 offset yield strength (LASER) of %g MPa \n\n",...
+        stress(idlaser))
+    yield_strength_laser(specimen_number) = stress(idlaser);
 
     %% Plot Laser
     figure
     plot(laser_strain, stress(laser_warmup:end), "Linewidth", 2)
-    grid on; grid minor;
-    xlabel("Approximate Strain (Laser)", "interpreter", "latex")
-    ylabel("Engineering Stress (MPa)", "interpreter", "latex")
+    grid on;
+    xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+    ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
     axis manual
     hold on
     plot(laser_strain, offset_laser, "--k",...
@@ -101,7 +110,7 @@ for specimen_number = 1:5
     legend("Stress-Strain",...
         "0.2\% offset Line", "Yield Point", "Location", "Southeast",...
         "interpreter", "latex")
-    title(sprintf("Specimen %g (Laser Extensometer)",...
+    title(sprintf("Specimen %g, Yield Strength (Laser Extensometer)",...
         specimen_number), "interpreter", "latex")
     
     XX = xlim();
@@ -111,6 +120,7 @@ for specimen_number = 1:5
 
     saveas(gcf, sprintf("../../figures/laseryield%d.pdf", specimen_number))
 end
+table((1:5)', yield_strength_gauge, yield_strength_laser)
 input("Press enter to close the plots")
 close all
 
