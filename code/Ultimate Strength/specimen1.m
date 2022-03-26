@@ -24,10 +24,11 @@ figure
 hold on
 plot(strain, eng_stress)
 plot(strain_at_max_stress, max_stress, 'o')
-xlabel("Strain Gauge - dimensionaless");
-ylabel("Engineering Stress - N/m^2");
-title("Engineering Stress vs. Engineering Strain Plot for specimen 1");
-legend("stress-Strain relationship", "Ultimate Strength = 74.647 N/m^2", "location", "Southeast");
+xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
+title("Ultimate Tensile Stress (MPa), Strain Gauge", "Interpreter", "latex");
+legend("Stress-Strain relationship", "Ultimate Strength = $74.647$ MPa", "location", "Southeast", "Interpreter", "latex");
+grid on
 hold off
 saveas(gcf, 'US_specimen1_strain_gauge.pdf')
 
@@ -36,9 +37,10 @@ figure
 hold on
 plot(laser, eng_stress(20:634))
 plot(laser_strain_at_max_stress, max_stress, 'o')
-xlabel("Laser Strain - dimensionaless");
-ylabel("Engineering Stress - N/m^2");
-title("Engineering Stress vs. Laser Strain Plot for specimen 1");
-legend("Stress-Strain relationship", "Ultimate Strength = 74.647 N/m^2", "location", "Southeast");
+xlabel("Engineering Strain, $\epsilon$, (  )", "Interpreter", "latex")
+ylabel("Engineering Stress,  $\sigma$, (MPa)", "Interpreter", "latex")
+title("Ultimate Tensile Stress (MPa), Lasor Extensometer", "Interpreter", "latex");
+legend("Stress-Strain relationship", "Ultimate Strength = $74.647$ MPa", "location", "Southeast", "Interpreter", "latex");
+grid on
 hold off
 saveas(gcf, 'US_specimen1_laser.pdf')
